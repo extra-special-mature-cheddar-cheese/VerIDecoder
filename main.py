@@ -1,3 +1,7 @@
+# debug mode
+from _typeshed import Self
+
+
 debug = True
 
 class basedecoder:
@@ -5,10 +9,15 @@ class basedecoder:
         self.active = ""
         self.temp = ""
         self.temp2 = []
+        self.temp3 = []
         self.cellmatrix = []
         self.levelwidth = 0
         self.levelheight = 0
     
+    def mapfunc(a,b):
+        return((a,b))
+
+    # get height of level from self.temp
     def get_height(self):
         code = self.temp
         current = ""
@@ -46,6 +55,7 @@ class basedecoder:
             """)
         return(int(height))
     
+    # get width of level from self.temp
     def get_width(self):
         code = self.temp
         current = ""
@@ -80,6 +90,7 @@ class basedecoder:
             """)
         return(int(width))
 
+    # set self.active if code meets correct criteria
     def set_active(self,code):
         if not code[1] == "1":
             print("Error: Code is not V1.")
@@ -98,7 +109,7 @@ class basedecoder:
                 print("Level cannot be wider than 50.")
                 self.temp = ""
 
-    # gigachad smokes
+    # create a list containing all of the cells in the code
     def create_cell_matrix(self):
         code = self.active
         current = ""
@@ -178,8 +189,12 @@ class basedecoder:
                 currentcell += "3"
             elif x == "3":
                 currentcell += "4"
+            
             self.cellmatrix.append(currentcell)
             currentcell = ""
+        
+        # TODO:
+        #   find x and y pos of currentcell
 
 
 
