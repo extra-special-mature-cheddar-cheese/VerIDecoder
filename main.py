@@ -12,9 +12,6 @@ class basedecoder:
         self.cellmatrix = []
         self.levelwidth = 0
         self.levelheight = 0
-    
-    def mapfunc(a,b):
-        return((a,b))
 
     # get height of level from self.temp
     def get_height(self):
@@ -236,3 +233,6 @@ matrix: {decoder.cellmatrix}
 temp2: {decoder.temp2}
 temp3: {decoder.temp3}
 """)
+
+# TODO:
+#     visualise data 🤪
