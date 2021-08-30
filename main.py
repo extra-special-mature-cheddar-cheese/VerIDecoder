@@ -1,5 +1,4 @@
 # debug mode
-from _typeshed import Self
 
 
 debug = True
@@ -189,18 +188,44 @@ class basedecoder:
                 currentcell += "3"
             elif x == "3":
                 currentcell += "4"
+
+            print("\n\n")
             
+            a = ""
+            y = ""
+            z = 4
+            while True:
+                a = i[z]
+                if a == ".":
+                    break
+                else:
+                    z += 1
+                    y += a
+            xloc = int(y)
+            z += 1
+            y = ""
+            while True:
+                try:
+                    a = i[z]
+                except IndexError:
+                    break
+                z += 1
+                y += a
+
             self.cellmatrix.append(currentcell)
             currentcell = ""
-        
-        # TODO:
-        #   find x and y pos of currentcell
+            yloc = int(y)
+            loc = (xloc,yloc)
+            if debug:
+                print(loc)
+                print("\n\n")
+            self.temp3.append(loc)
 
 
 
 decoder = basedecoder()
 
-decoder.set_active("V1;3;1;;7.0.0.0,3.2.2.0;;")
+decoder.set_active("V1;3;1;;3.2.2.0;;")
 decoder.create_cell_matrix()
 
 print(f"""
@@ -209,4 +234,5 @@ width: {decoder.levelwidth}
 height: {decoder.levelheight}
 matrix: {decoder.cellmatrix}
 temp2: {decoder.temp2}
+temp3: {decoder.temp3}
 """)
