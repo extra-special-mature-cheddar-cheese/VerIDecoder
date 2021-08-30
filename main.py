@@ -107,6 +107,8 @@ class basedecoder:
 
     # create a list containing all of the cells in the code
     def create_cell_matrix(self):
+        def mapfunc(a,b):
+            return((a,b))
         code = self.active
         current = ""
         index = 0
@@ -128,23 +130,21 @@ class basedecoder:
 
         while not stop:
             currentcell = ""
-            for i in range(7):
+            while True:
                 current = code[index]
                 if debug:
                     print(current)
                 index += 1
+                if current == "," or current == ";":
+                    break
                 currentcell += current
             if debug:
                 print()
                 print(currentcell)
             
             self.temp2.append(currentcell)
-
-            if code[index + 1] == ";":
+            if current == ";":
                 stop = True
-                if debug:
-                    print()
-                    print("End of cells.")
             else:
                 index += 1
             
@@ -198,7 +198,7 @@ class basedecoder:
                 else:
                     z += 1
                     y += a
-            xloc = int(y)
+            xloc = int(y) # doesn't work, probably something near line 130
             z += 1
             y = ""
             while True:
@@ -217,12 +217,14 @@ class basedecoder:
                 print(loc)
                 print("\n\n")
             self.temp3.append(loc)
+            self.cellmatrix = list(map(mapfunc,self.cellmatrix,self.temp3))
+            self.temp2 = self.temp3 = []
 
 
 
 decoder = basedecoder()
 
-decoder.set_active("V1;3;1;;3.2.2.0;;")
+decoder.set_active("V1;20;20;;0.0.6.12,0.1.6.11,0.2.5.11,0.3.5.12,1.0.7.10,4.0.10.14,4.1.10.15,4.0.10.16,4.1.10.17,4.0.10.18,4.1.11.14,4.2.11.15,4.3.11.16,4.3.11.17,4.1.11.18,4.0.12.14,4.2.12.15,7.0.12.16,4.0.12.17,4.0.12.18,0.3.13.1,0.3.13.2,0.3.13.3,0.3.13.4,0.3.13.5,0.3.13.6,5.3.13.7,5.3.13.8,5.3.13.9,5.3.13.11,5.3.13.12,5.3.13.13,4.1.13.14,4.1.13.15,4.1.13.16,4.0.13.17,4.1.13.18,0.3.14.1,0.3.14.2,0.3.14.3,0.3.14.4,0.3.14.5,0.3.14.6,5.3.14.7,5.3.14.8,5.3.14.9,5.3.14.10,5.3.14.12,5.3.14.13,4.0.14.14,4.1.14.15,4.0.14.16,4.1.14.17,4.0.14.18,0.3.15.1,0.3.15.2,0.3.15.3,0.3.15.4,0.3.15.5,0.3.15.6,5.3.15.7,5.3.15.9,5.3.15.11,5.3.15.13,0.3.13.0,0.3.14.0,0.3.15.0,8.0.13.19,8.0.14.19,8.0.15.19,2.0.15.8,2.0.15.10,2.0.14.11,2.0.15.12,0.2.13.10,3.0.2.5,0.1.3.5,0.1.3.4,0.1.3.6,3.0.2.6,3.0.1.4,5.0.2.4,6.0.2.17,3.3.2.16,3.0.1.17,3.1.2.18,3.2.3.17;;")
 decoder.create_cell_matrix()
 
 print(f"""
