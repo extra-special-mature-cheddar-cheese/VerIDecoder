@@ -10,6 +10,7 @@ class basedecoder:
         self.temp2 = []
         self.temp3 = []
         self.cellmatrix = []
+        self.celllocs = []
         self.levelwidth = 0
         self.levelheight = 0
 
@@ -116,8 +117,6 @@ class basedecoder:
         passed = 0
         while not stop:
             current = code[index]
-            if debug:
-                print(current)
             if current == ";":
                 passed += 1
             if passed == 4:
@@ -132,8 +131,6 @@ class basedecoder:
             currentcell = ""
             while True:
                 current = code[index]
-                if debug:
-                    print(current)
                 index += 1
                 if current == "," or current == ";":
                     break
@@ -146,7 +143,7 @@ class basedecoder:
             if current == ";":
                 stop = True
             else:
-                index += 1
+                pass
             
             if debug:
                 print()
@@ -217,8 +214,8 @@ class basedecoder:
                 print(loc)
                 print("\n\n")
             self.temp3.append(loc)
-            self.cellmatrix = list(map(mapfunc,self.cellmatrix,self.temp3))
-            self.temp2 = self.temp3 = []
+        self.celllocs = self.temp3.copy()
+        self.temp2 = self.temp3 = []
 
 
 
@@ -232,6 +229,7 @@ code: {decoder.active}
 width: {decoder.levelwidth}
 height: {decoder.levelheight}
 matrix: {decoder.cellmatrix}
+celllocs: {decoder.celllocs}
 temp2: {decoder.temp2}
 temp3: {decoder.temp3}
 """)
